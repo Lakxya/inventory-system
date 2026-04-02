@@ -1,19 +1,20 @@
-# 🚀 Inventory System
+# Inventory System
 
-A simple inventory management system built using HTML, CSS, JavaScript and Supabase.
+A modern SaaS-style inventory management system with authentication.
 
 ## 🔥 Features
-- Add / Update / Delete products
-- User authentication
-- Secure data using Row Level Security (RLS)
-- Clean UI dashboard
+- Email & Google Login
+- Inventory Management (CRUD)
+- Dashboard UI
+- Password Reset
 
 ## 🛠 Tech Stack
-- Frontend: HTML, CSS, JavaScript
-- Backend: Supabase
+- HTML, Tailwind CSS
+- JavaScript
+- Supabase (Auth + DB)
 
-## 🌐 Live Demo
-(Coming soon...)
+## 🚀 Live Demo
+Coming soon...
 
-## 📂 Author
+## 👨‍💻 Author
 Lakshya

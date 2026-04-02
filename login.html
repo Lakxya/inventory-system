@@ -1,175 +1,34 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Login</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
-  <style>
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .float {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .glow {
-      box-shadow: 0 0 30px rgba(34, 197, 94, 0.2);
-    }
-
-    .btn:active {
-      transform: scale(0.95);
-    }
-
-    .smooth {
-      transition: all 0.2s ease;
-    }
-
-    .glass {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.05);
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
-<body class="relative bg-black flex items-center justify-center h-screen text-white overflow-hidden">
+<body class="bg-gradient-to-br from-slate-900 to-black flex items-center justify-center h-screen">
 
-  <!-- Particles -->
-  <div id="particles-js" class="absolute w-full h-full"></div>
+<div class="bg-white/10 backdrop-blur-lg p-8 rounded-xl w-80 text-white shadow-xl">
 
-  <!-- Card -->
-  <div class="glass glow float p-10 rounded-2xl w-[400px] max-w-[90%] shadow-xl smooth hover:scale-105 z-10">
+  <h2 class="text-2xl font-bold mb-4">Welcome Back 👋</h2>
 
-    <h2 class="text-3xl mb-6 text-center font-semibold">Welcome Back 👋</h2>
+  <input id="email" placeholder="Email" class="w-full p-3 mb-3 rounded bg-white/20">
+  <input id="password" type="password" placeholder="Password" class="w-full p-3 mb-3 rounded bg-white/20">
 
-    <!-- Email -->
-    <div class="relative mb-5">
-      <span class="absolute left-3 top-4 text-gray-400">📧</span>
-      <input id="email" type="email" placeholder="Email"
-        class="w-full pl-10 p-4 rounded bg-slate-700 outline-none smooth focus:ring-2 focus:ring-green-400 overflow-x-auto"
-        style="white-space: nowrap;">
-    </div>
+  <button onclick="login()" class="w-full bg-green-500 p-3 rounded">Login</button>
 
-    <!-- Password -->
-    <div class="relative mb-5">
-      <span class="absolute left-3 top-4 text-gray-400">🔒</span>
-      <input id="password" type="password" placeholder="Password"
-        class="w-full pl-10 p-4 rounded bg-slate-700 outline-none smooth focus:ring-2 focus:ring-green-400">
-    </div>
+  <button onclick="googleLogin()" class="w-full bg-white text-black mt-3 p-3 rounded">
+    Continue with Google
+  </button>
 
-    <!-- Button -->
-    <button id="loginBtn" onclick="login()"
-      class="btn smooth w-full bg-green-500 hover:bg-green-400 p-4 rounded-lg font-semibold shadow-md hover:shadow-green-500/50 flex items-center justify-center gap-2">
+  <p class="mt-4 text-sm">
+    Forgot password? <a href="reset.html" class="text-green-400">Reset</a>
+  </p>
 
-      <span id="btnText">Login</span>
-      <span id="loader"
-        class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+</div>
 
-    </button>
-
-    <p class="text-sm mt-5 text-center text-gray-300">
-      No account?
-      <span onclick="signup()" class="text-blue-400 cursor-pointer hover:underline smooth">
-        Sign up
-      </span>
-    </p>
-
-  </div>
-
-  <!-- Toast -->
-  <div id="toast"
-    class="fixed bottom-5 right-5 px-4 py-2 rounded text-white shadow-lg opacity-0 transition-all duration-300 z-20">
-  </div>
-
-  <!-- Supabase -->
-  <script src="js/api.js"></script>
-
-  <!-- Logic -->
-  <script>
-    function showToast(message, isError = false) {
-      const toast = document.getElementById("toast");
-
-      toast.innerText = message;
-      toast.style.background = isError ? "#ef4444" : "#22c55e";
-
-      toast.classList.remove("opacity-0");
-      toast.classList.add("opacity-100");
-
-      setTimeout(() => {
-        toast.classList.remove("opacity-100");
-        toast.classList.add("opacity-0");
-      }, 2000);
-    }
-
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const btn = document.getElementById("loginBtn");
-      const text = document.getElementById("btnText");
-      const loader = document.getElementById("loader");
-
-      btn.disabled = true;
-      text.innerText = "Logging in...";
-      loader.classList.remove("hidden");
-
-      const { error } = await client.auth.signInWithPassword({ email, password });
-
-      btn.disabled = false;
-      text.innerText = "Login";
-      loader.classList.add("hidden");
-
-      if (error) {
-        showToast("Login failed ❌", true);
-      } else {
-        showToast("Welcome back 🚀");
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 800);
-      }
-    }
-
-    async function signup() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const { error } = await client.auth.signUp({ email, password });
-
-      if (error) {
-        showToast("Signup failed ❌", true);
-      } else {
-        showToast("Account created! Now login ✅");
-      }
-    }
-  </script>
-
-  <!-- Particles Init -->
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 80 },
-        size: { value: 3 },
-        color: { value: "#22c55e" },
-        line_linked: {
-          enable: true,
-          color: "#22c55e"
-        },
-        move: {
-          speed: 2
-        }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" }
-        }
-      }
-    });
-  </script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
 
 </body>
 </html>
