@@ -14,7 +14,7 @@ A modern SaaS-style inventory management system with authentication.
 - Supabase (Auth + DB)
 
 ## 🚀 Live Demo
-Coming soon...
+[](https://inventory-system-three-sepia.vercel.app)
 
 ## 👨‍💻 Author
 Lakshya
